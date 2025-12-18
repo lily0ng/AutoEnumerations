@@ -1,0 +1,107 @@
+output_dir: ./output
+verbose: false
+timeout: 3600
+
+concurrency:
+  max_workers: 10
+  queue_size: 100
+
+rate_limit:
+  requests_per_second: 100
+  burst: 200
+
+modes:
+  quick:
+    description: "Fast subdomain and port discovery"
+    tools:
+      - subfinder
+      - dnsx
+      - naabu
+      - httpx
+
+  standard:
+    description: "Full enumeration with web discovery"
+    tools:
+      - subfinder
+      - assetfinder
+      - dnsx
+      - naabu
+      - httpx
+      - katana
+      - waybackurls
+      - nuclei
+      - gowitness
+
+  deep:
+    description: "Comprehensive scan with vulnerability detection"
+    tools:
+      - subfinder
+      - assetfinder
+      - amass
+      - dnsx
+      - naabu
+      - httpx
+      - katana
+      - gospider
+      - waybackurls
+      - gau
+      - nuclei
+      - gowitness
+      - tlsx
+      - webanalyze
+
+tools:
+  subfinder:
+    enabled: true
+    priority: 1
+    timeout: 300
+    args:
+      threads: "10"
+
+  assetfinder:
+    enabled: true
+    priority: 1
+    timeout: 300
+
+  amass:
+    enabled: true
+    priority: 1
+    timeout: 600
+    args:
+      passive: "true"
+
+  dnsx:
+    enabled: true
+    priority: 2
+    timeout: 300
+
+  naabu:
+    enabled: true
+    priority: 3
+    timeout: 600
+    args:
+      top_ports: "1000"
+
+  httpx:
+    enabled: true
+    priority: 4
+    timeout: 300
+    args:
+      threads: "50"
+
+  katana:
+    enabled: true
+    priority: 5
+    timeout: 600
+
+  nuclei:
+    enabled: true
+    priority: 6
+    timeout: 900
+    args:
+      severity: "critical,high,medium"
+
+  gowitness:
+    enabled: true
+    priority: 7
+    timeout: 300

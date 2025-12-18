@@ -8,6 +8,7 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/autoenumeration/autoenum/internal/engine"
 	"github.com/autoenumeration/autoenum/internal/logger"
 	"github.com/autoenumeration/autoenum/internal/reporter"
 	"github.com/spf13/cobra"
@@ -78,7 +79,7 @@ func runScan(cmd *cobra.Command, args []string) error {
 		cancel()
 	}()
 
-	scanConfig := &ScanConfig{
+	scanConfig := &engine.ScanConfig{
 		Target:    target,
 		Mode:      scanMode,
 		SkipTools: skipTools,
@@ -109,14 +110,6 @@ func runScan(cmd *cobra.Command, args []string) error {
 	printSummary(results)
 
 	return nil
-}
-
-type ScanConfig struct {
-	Target    string
-	Mode      string
-	SkipTools []string
-	OnlyTools []string
-	Resume    bool
 }
 
 func printSummary(results interface{}) {
